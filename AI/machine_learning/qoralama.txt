@@ -1,0 +1,142 @@
+zo‘r qaror 👍 koddan oldin data’ni tushunish — bu haqiqiy data scientist odati.
+Keling, student_data.csv dagi ustunlarni mantiqiy guruhlarga bo‘lib, oddiy tilda tushuntirib chiqaman. Shunda keyin qaysilarini qoldiramiz, qaysilarini olib tashlaymiz — oson bo‘ladi.
+
+📊 student_data.csv ustunlari tushuntirishi
+🏫 1. Umumiy ma’lumotlar
+| Ustun     | Ma’nosi                                          |
+| --------- | ------------------------------------------------ |
+| `school`  | Maktab nomi (`GP` yoki `MS`)                     |
+| `sex`     | Jinsi (`F` – qiz, `M` – o‘g‘il)                  |
+| `age`     | Yoshi                                            |
+| `address` | Yashash joyi (`U` – shahar, `R` – qishloq)       |
+| `famsize` | Oila kattaligi (`LE3` ≤3, `GT3` >3)              |
+| `Pstatus` | Ota-onalar holati (`T` – birga, `A` – ajrashgan) |
+
+
+👉 Ta’siri bo‘lishi mumkin, lekin kuchli emas.
+
+👨‍👩‍👧 2. Ota-ona va oila holati
+| Ustun      | Ma’nosi                       |
+| ---------- | ----------------------------- |
+| `Medu`     | Onaning ta’lim darajasi (0–4) |
+| `Fedu`     | Otaning ta’lim darajasi (0–4) |
+| `Mjob`     | Onaning kasbi                 |
+| `Fjob`     | Otaning kasbi                 |
+| `guardian` | Vasiy (ona / ota / boshqa)    |
+
+👉 Ijtimoiy faktorlar — pass/fail ga ta’sir qilishi mumkin.
+
+🎯 3. Maktabga munosabat va motivatsiya
+| Ustun       | Ma’nosi                           |
+| ----------- | --------------------------------- |
+| `reason`    | Nega shu maktab tanlangan         |
+| `higher`    | Oliy ta’lim xohlaydimi (`yes/no`) |
+| `studytime` | Haftalik o‘qish vaqti (1–4)       |
+| `failures`  | Oldingi yiqilishlar soni          |
+
+
+👉 ENG MUHIM BLOK 🔥
+Ayniqsa: studytime, failures, higher
+
+🏫 4. Qo‘llab-quvvatlash va sharoit
+| Ustun       | Ma’nosi            |
+| ----------- | ------------------ |
+| `schoolsup` | Maktab yordami     |
+| `famsup`    | Oila yordami       |
+| `paid`      | Qo‘shimcha dars    |
+| `internet`  | Internet bormi     |
+| `nursery`   | Bog‘chaga borganmi |
+
+👉 Yordamchi omillar.
+
+🎉 5. Hayot tarzi va odatlar
+| Ustun        | Ma’nosi                    |
+| ------------ | -------------------------- |
+| `activities` | To‘garaklar                |
+| `romantic`   | Sevgi munosabatlari        |
+| `freetime`   | Bo‘sh vaqt                 |
+| `goout`      | Do‘stlar bilan chiqish     |
+| `Dalc`       | Kunlik ichimlik            |
+| `Walc`       | Dam olish kunlari ichimlik |
+| `health`     | Sog‘liq (1–5)              |
+
+
+👉 Bu blok juda qiziqarli 😄
+Ichimlik + goout → ko‘pincha bahoga salbiy ta’sir qiladi.
+
+📉 6. Intizom
+| Ustun        | Ma’nosi                |
+| ------------ | ---------------------- |
+| `traveltime` | Maktabga borish vaqti  |
+| `absences`   | Dars qoldirishlar soni |
+
+
+👉 absences — kuchli signal ⚠️
+
+🧪 7. Baholar (DIQQAT!)
+| Ustun | Ma’nosi             |
+| ----- | ------------------- |
+| `G1`  | 1-chorak bahosi     |
+| `G2`  | 2-chorak bahosi     |
+| `G3`  | Yakuniy baho (0–20) |
+
+
+⚠️ G3 = TARGET MANBAI
+Biz shundan:
+
+G3 ≥ 10 → Pass
+G3 < 10 → Fail
+
+
+⚠️ G1, G2 ni:
+
+yoki olib tashlaymiz
+
+yoki alohida tajriba qilamiz
+
+🧠 XULOSA (katta rasm)
+
+Agar ustoz so‘rasa, shunday deysan:
+
+“Bu datasetda talabaning ijtimoiy holati, o‘qishga munosabati, oilaviy sharoiti va hayot tarzi asosida uning yakuniy imtihondan o‘tish-o‘tmasligini bashorat qilamiz.”
+
+🔥 Kuchli gap.
+
+
+
+
+❌ Yakuniy olib tashlanadiganlar
+['G1', 'G2', 'G3', 'school', 'guardian', 'reason', 'romantic', 'nursery']
+
+
+alcohol_level = (Dalc + Walc) / 2
+academic_risk = failures / (studytime + 1)
+social_activity = (freetime + goout) / 2
+parent_education_avg = (Medu + Fedu) / 2
+
+
+🧠 YAKUNIY STRATEGIYA (ENG TO‘G‘RISI)
+1️⃣ Avval original ustunlar bilan model
+2️⃣ Keyin birlashtirilgan ustunlar qo‘shib
+3️⃣ Natijani solishtiramiz (accuracy / recall)
+👉 Agar oshsa → olamiz
+👉 O‘zgarmasa → olib tashlaymiz
+Bu — professional yondashuv 🔥
+
+
+
+
+
+1- tog'irlashdan keyin
+
+eski 
+
+0  Logistic Regression  0.708861
+1        Random Forest  0.683544
+2                  SVM  0.759494
+
+yang
+
+0  Logistic Regression  0.746835
+1        Random Forest  0.734177
+2                  SVM  0.734177
